@@ -65,8 +65,8 @@ final class ConfigProvider implements ConfigProviderInterface
                         'ppc_language'                => 'en',
                         'ppc_timestamp'               => (int) $this->config->getTimeStamp()
                     )),
-                    'url_img'                       => 'https://'.($this->config->isTestMode()?'uat-':'').'secure.pointspay.com/checkout/user/btn-img-v2?s='.$this->config->getMerchantCode(),
-                    'paymentAcceptanceMarkSrc'      => 'https://'.($this->config->isTestMode()?'uat-':'').'secure.pointspay.com/checkout/user/btn-img-v2?s='.$this->config->getMerchantCode(),
+                    'url_img'                       => 'https://'.($this->config->isTestMode()?'uat-flb.pointspay.com':'plus-secure.flyingblue.com').'/checkout/user/btn-img-v2?s='.$this->config->getMerchantCode(),
+                    'paymentAcceptanceMarkSrc'      => 'https://'.($this->config->isTestMode()?'uat-flb.pointspay.com':'plus-secure.flyingblue.com').'/checkout/user/btn-img-v2?s='.$this->config->getMerchantCode(),
                     'payment_disabled_descrption'   => $this->config->getPaymentDisabledDesc()
                 ]
             ]

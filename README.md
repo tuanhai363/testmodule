@@ -114,7 +114,6 @@ Go to Magento Admin -> STORES -> Settings -> Configuration -> Sales -> Payment M
 | --- | --- |
 | Enabled | Option to turn plugin on/off (Yes/No). If "No" is selected, Flying Blue+ wouldn't appear among payment methods on the checkout page. |
 | Test Mode | If "Yes" is selected, all requests are sent to the Pointspay test server, and all such payments will not be valid for pay-out. |
-| Title | Title text is shown on checkout process under selection of payment methods. |
 | Debug | In case of any error, the Pointspay support team will ask you to turn on (Yes) this option; by default this is set to No. |
 | Payment From Applicable Countries | This option defines the applicability of Flying Blue+ either to All countries or to the selected countries. |
 | Payment From Specific Countries | This option defines the applicability of Flying Blue+ to the selected countries. Flying Blue+ payment method will not be shown at the checkout page if the customer is from a country that isn't listed here. |
