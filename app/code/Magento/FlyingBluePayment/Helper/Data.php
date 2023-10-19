@@ -15,8 +15,8 @@ use Exception;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const GATEWAY_URL      = 'https://secure.pointspay.com/';
-    const GATEWAY_TEST_URL = 'https://uat-secure.pointspay.com/';
+    const GATEWAY_URL      = 'https://plus-secure.flyingblue.com/';
+    const GATEWAY_TEST_URL = 'https://uat-flb.pointspay.com/';
     /**
      * @var Logger
      */
@@ -185,6 +185,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function isTestMode()
     {
         return (boolean) $this->scopeConfig->getValue('payment/flyingblue/test_mode');
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return (boolean) $this->scopeConfig->getValue('payment/flyingblue/active');
     }
 
     /**
