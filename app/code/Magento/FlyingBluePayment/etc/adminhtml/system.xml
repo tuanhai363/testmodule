@@ -9,7 +9,7 @@
     <system>
         <section id="payment">
             <group id="flying_blue_payment" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label><![CDATA[<image style="float: left; margin-right: 15px;" height="29" src="https://plus-secure.flyingblue.com/checkout/user/btn-img?p=FLB&is=245x40" alt=""></image>Flying Blue+]]></label>
+                <label><![CDATA[<image style="float: left; margin-right: 15px;" height="29" src="https://plus-secure.flyingblue.com/checkout/user/btn-img-v2?p=FLB&is=245x40" alt=""></image>Flying Blue+]]></label>
                 <attribute type="expanded">1</attribute>
                 <group id="flyingbluepaymentmethod_basic" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label><![CDATA[Basic Settings]]></label>
