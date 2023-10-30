@@ -73,10 +73,10 @@ define([
                 $('#ppc_checkout_btn').remove();
                 var imported = document.createElement('script');
                 if (window.checkoutConfig.payment['flying_blue_payment']['test_mode'])
-                    imported.src = 'https://uat-secure.pointspay.com/checkout/extjs/ppc-jsloader-min.js';
+                    imported.src = 'https://uat-flb.pointspay.com/checkout/extjs/ppc-jsloader-min.js';
                 else
                 {
-                    imported.src = 'https://secure.pointspay.com/checkout/extjs/ppc-jsloader-min.js';
+                    imported.src = 'https://plus-secure.flyingblue.com/checkout/extjs/ppc-jsloader-min.js';
                 }
                 document.head.appendChild(imported);
             });
