@@ -14,8 +14,7 @@
         "magento/module-sales": ">=100 <104",
         "magento/module-checkout": ">=100 <104",
         "magento/module-payment": ">=100 <104",
-        "magento/framework": ">=100 <104",
-        "magento/magento-composer-installer": ">=100 <104"
+        "magento/framework": ">=100 <104"
     },
     "autoload": {
         "files": [
