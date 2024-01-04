@@ -37,7 +37,7 @@ Since Magento 2.4.x platform doesn't provide inline installation/plugin manager,
 
 List of disabled module:
 
-```Magento\_FlyingBluePayment```
+```Pointspay\_FlyingBluePayment```
 
 5. Some extensions won't work properly unless you clear the Magento-generated static view files first. Use the --clear-static-content option to clear the static view files when you're enabling the extension.
 
@@ -107,7 +107,7 @@ Go to Magento Admin -> STORES -> Settings -> Configuration -> Sales -> Payment M
 
 ### Basic Settings
 
-![](./app/code/Magento/FlyingBluePayment/view/frontend/web/img/Picture1.png)
+![](./app/code/Pointspay/FlyingBluePayment/view/frontend/web/img/Picture1.png)
 
 
 | **Configuration** | **Description** |
@@ -124,7 +124,7 @@ Go to Magento Admin -> STORES -> Settings -> Configuration -> Sales -> Payment M
 
 ##### Access Settings
 
-![](./app/code/Magento/FlyingBluePayment/view/frontend/web/img/Picture2.png)
+![](./app/code/Pointspay/FlyingBluePayment/view/frontend/web/img/Picture2.png)
 
 
 | **Configuration** | **Description** |
@@ -148,7 +148,7 @@ The Pointspay Refund service is integrated with the Magento Online Refund Servic
 3. Click on "Online Refund" if present, or on "Refund". Please note that only Online Refund is supported for Flying Blue+.
 
 
-![](./app/code/Magento/FlyingBluePayment/view/frontend/web/img/Picture3.png)
+![](./app/code/Pointspay/FlyingBluePayment/view/frontend/web/img/Picture3.png)
 
 
 #### Troubleshooting
