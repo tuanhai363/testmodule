@@ -19,7 +19,7 @@
     },
     "autoload": {
         "files": [
-            "app\\code\\registration.php"
+            "app\\code\\Pointspay\\FlyingBluePayment\\registration.php"
         ],
         "psr-4": {
             "app\\code\\Pointspay\\FlyingBluePayment\\": ""
