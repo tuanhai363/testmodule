@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="FlyingBluePaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Pointspay\FlyingBluePayment\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Pointspay\FlyingBluePayment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">FlyingBluePaymentValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">FlyingBluePaymentCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <virtualType name="FlyingBluePaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Pointspay\FlyingBluePayment\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Logger, initialized with FlyingBluePaymentConfig -->
+    <virtualType name="FlyingBluePaymentLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Pointspay\FlyingBluePayment\Gateway\Http\Client\ClientMock">
+        <arguments>
+            <argument name="logger" xsi:type="object">FlyingBluePaymentLogger</argument>
+        </arguments>
+    </type>
+
+    <type name="Pointspay\FlyingBluePayment\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">PointPayPayment</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Pointspay\FlyingBluePayment\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Commands infrastructure -->
+    <virtualType name="FlyingBluePaymentCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="authorize" xsi:type="string">FlyingBluePaymentAuthorizeCommand</item>
+                <item name="capture" xsi:type="string">FlyingBluePaymentCaptureCommand</item>
+                <item name="refund" xsi:type="string">FlyingBluePaymentRefundCommand</item>
+                <item name="void" xsi:type="string">FlyingBluePaymentVoidCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorize command -->
+    <virtualType name="FlyingBluePaymentAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Request\AuthorizationRequest</argument>
+            <argument name="handler" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Response\TxnIdHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\Client\ClientMock</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorization Request -->
+    <virtualType name="FlyingBluePaymentAuthorizationRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="transaction" xsi:type="string">Pointspay\FlyingBluePayment\Gateway\Request\AuthorizationRequest</item>
+                <item name="mockData" xsi:type="string">Pointspay\FlyingBluePayment\Gateway\Request\MockDataRequest</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Pointspay\FlyingBluePayment\Gateway\Request\AuthorizationRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Capture command -->
+    <virtualType name="FlyingBluePaymentCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Request\CaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\TransferFactory</argument>
+            <!--<argument name="validator" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Validator\ResponseCodeValidator</argument>-->
+            <argument name="client" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\Client\ClientMock</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture Request -->
+    <type name="Pointspay\FlyingBluePayment\Gateway\Request\CaptureRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Refund command -->
+    <virtualType name="FlyingBluePaymentRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Request\RefundRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\TransferFactory</argument>
+            <!--<argument name="validator" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Validator\ResponseCodeValidator</argument>-->
+            <argument name="client" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\Client\ClientMock</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Request -->
+    <type name="Pointspay\FlyingBluePayment\Gateway\Request\RefundRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Void command -->
+    <virtualType name="FlyingBluePaymentVoidCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Request\VoidRequest</argument>
+            <argument name="handler" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Response\TxnIdHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\TransferFactory</argument>
+            <!--<argument name="validator" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Validator\ResponseCodeValidator</argument>-->
+            <argument name="client" xsi:type="object">Pointspay\FlyingBluePayment\Gateway\Http\Client\ClientMock</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Void Request -->
+    <type name="Pointspay\FlyingBluePayment\Gateway\Request\VoidRequest">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </type>
+
+    <!-- Response handlers -->
+    <!--<virtualType name="FlyingBluePaymentResponseHandlerComposite" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="txnid" xsi:type="string">Pointspay\FlyingBluePayment\Gateway\Response\TxnIdHandler</item>
+                <item name="fraud" xsi:type="string">Pointspay\FlyingBluePayment\Gateway\Response\FraudHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>-->
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="FlyingBluePaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">FlyingBluePaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="FlyingBluePaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Pointspay\FlyingBluePayment\Block\Info">
+        <arguments>
+            <argument name="config" xsi:type="object">FlyingBluePaymentConfig</argument>
+        </arguments>
+    </type>
+
+</config>
